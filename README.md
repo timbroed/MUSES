@@ -97,10 +97,11 @@ In this SDK, we provide the following tools:
    - [calculate_channel_statistics.py](scripts/calculate_channel_statistics.py): A script to calculate channel statistics for the projected sensor images.
    - [motion_compensation.py](scripts/motion_compensation.py): A script to perform motion compensation for the lidar and radar data.
 
-The SDK is further ment to give you a starting point for your own scripts. 
-I.e. in the [processing](processing) folder, you can find sensor specific helper functions for lidar, radar and event camera to load and process the data,
-like 'load_event_camera_data', 'load_lidar_data' or 'load_radar_data'. 
-In the [utils](utils) folder, you can find further helper functions like 'load_muses_calibration_data'or 'load_gnss_data'.
+The SDK is further meant to give you a starting point for your scripts. 
+I.e. in the [processing](processing) folder, you can find sensor-specific processing files for [lidar](processing/lidar_processing.py), [radar](processing/radar_processing.py) and [event camera](processing/event_camera_processing.py) to load and process the modality.
+For loading the unprocessed sensor data you can use: 'load_lidar_data', 'load_radar_as_pcd', and 'accumulate_events'. 
+For loading the modalities projected onto the camera image you can use: 'load_lidar_projection', 'load_radar_projection', and 'load_event_camera_projection'.
+In the [utils](processing/utils.py) file, you can find further helper functions like 'load_meta_data', 'load_muses_calibration_data', and 'read_gnss_file'.
 
 ### Citation
 
@@ -118,7 +119,7 @@ This work was supported by the ETH Future Computing Laboratory (EFCL), financed 
 
 Please feel free to contact us with any questions or comments:
 
-Tim Broedermann, David Bruggemann and Christos Sakaridis
+Tim Broedermann and Christos Sakaridis
 
 E-Mail: muses.efcl [at] zohomail.eu
 
