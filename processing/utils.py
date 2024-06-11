@@ -417,9 +417,29 @@ def apply_rotational_correction(pcd_points, ublox_data, delta_ts_in_s):
     roll_correction = np.deg2rad(ublox_data['angular_rate_roll'] * delta_ts_in_s / 1e5)
     pitch_correction = np.deg2rad(ublox_data['angular_rate_pitch'] * delta_ts_in_s / 1e5)
     yaw_correction = np.deg2rad(ublox_data['angular_rate_heading'] * delta_ts_in_s / 1e5)
-    xyz_rotations = np.column_stack((roll_correction, pitch_correction, yaw_correction))
-    rotation_matrices = np.array([get_rotation_matrix(rot[0], rot[1], rot[2]) for rot in xyz_rotations])
-    pcd_points[:, :3] = np.einsum('ijk,ik->ij', rotation_matrices, pcd_points[:, :3])
+
+    # Calculate sin and cos for each correction
+    sr, cr = np.sin(roll_correction), np.cos(roll_correction)
+    sp, cp = np.sin(pitch_correction), np.cos(pitch_correction)
+    sy, cy = np.sin(yaw_correction), np.cos(yaw_correction)
+
+    # Rotation matrix components
+    R11 = cy * cp
+    R12 = cy * sp * sr - sy * cr
+    R13 = cy * sp * cr + sy * sr
+    R21 = sy * cp
+    R22 = sy * sp * sr + cy * cr
+    R23 = sy * sp * cr - cy * sr
+    R31 = -sp
+    R32 = cp * sr
+    R33 = cp * cr
+
+    # Apply the rotation matrices
+    x, y, z = pcd_points[:, 0], pcd_points[:, 1], pcd_points[:, 2]
+    pcd_points[:, 0] = R11 * x + R12 * y + R13 * z
+    pcd_points[:, 1] = R21 * x + R22 * y + R23 * z
+    pcd_points[:, 2] = R31 * x + R32 * y + R33 * z
+
     return pcd_points
 
 
