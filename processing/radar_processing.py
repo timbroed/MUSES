@@ -67,7 +67,7 @@ def append_to_point_cloud(xyzi, point_count, num_points, x, y, fft_data, valid_m
 
 
 def radar_to_point_cloud(front_radar_polar_image, intensity_threshold=0, image_fov_only=False, step=400,
-                         ground_level=1.62):
+                         ground_level=1.62, max_distance=330.0768, resolution=0.0438):
     """
     Convert radar data to a point cloud.
     This funktion sets the height channel to the ground level (at 1.62m).
@@ -78,6 +78,8 @@ def radar_to_point_cloud(front_radar_polar_image, intensity_threshold=0, image_f
         step (int): The step size for the radar data (default is 400)
         image_fov_only (bool): Whether to load points in the image Field of View only (default is False)
         ground_level (float): The ground level (default is 1.62) used for the height channel of the point cloud.
+        max_distance (float): The maximum distance of points to keep (default is 330.0768)
+        resolution (float): The resolution of the radar (default is 0.0438)
 
     Returns:
         np.array: The radar data as a point cloud.
@@ -91,27 +93,33 @@ def radar_to_point_cloud(front_radar_polar_image, intensity_threshold=0, image_f
         max_azimuths = step - 1
 
     azimuths = -np.radians(np.linspace(-180 + (360 / step), 180, step).astype(np.float32))
-    distance = np.linspace(0.0438, 330.0768, front_radar_polar_image.shape[0] - 11)
-    range_in_bins = 7536
-    max_points = (max_azimuths - min_azimuths + 1) * range_in_bins
-    xyzi = np.zeros((max_points, 5), dtype=np.float64)
-    point_count = 0
+    range_in_bins = int(max_distance//resolution)
+    front_radar_polar_image = front_radar_polar_image[:range_in_bins + 11]
+    end_distance =  np.round(range_in_bins * resolution, decimals=4)
+    distance = np.linspace(resolution, end_distance, range_in_bins)
 
-    for i in range(min_azimuths, max_azimuths):
-        timestamps_us = extract_timestamps(front_radar_polar_image, i)
-        valid_flag = front_radar_polar_image[10, i].copy().view(np.uint8)
-        if valid_flag:
-            fft_data = front_radar_polar_image[11:, i]
-            valid_mask = fft_data >= intensity_threshold
-            x, y = calculate_coordinates(distance, azimuths, valid_mask, i)
-            num_points = sum(valid_mask)
-            xyzi = append_to_point_cloud(xyzi, point_count, num_points, x, y, fft_data, valid_mask, timestamps_us)
-            point_count += num_points
-        else:
-            print("[WARNING] valid_flag 0 encountered. Skipping point cloud conversion for the azimuths.")
+    front_radar_polar_image = front_radar_polar_image[:, min_azimuths:max_azimuths]
+    azimuths = azimuths[min_azimuths:max_azimuths]
+    timestamps_s = front_radar_polar_image[:4].transpose().reshape(-1).view(np.uint32).astype(np.float64)
+    timestamps_ns = front_radar_polar_image[4:8].transpose().reshape(-1).view(np.uint32).astype(np.float64)
+    timestamps_us = (timestamps_s * 1000000.) + (timestamps_ns / 1e9 * 1000000.)  # microseconds
 
-    xyzi = xyzi[:point_count, :]
+    valid_flag = front_radar_polar_image[10].view(np.uint8).astype(np.bool)
+
+    fft_data = front_radar_polar_image[11:]
+    valid_mask = fft_data >= intensity_threshold
+    valid_mask = valid_mask * valid_flag
+    x = np.outer(distance, np.cos(azimuths))
+    y = np.outer(distance, np.sin(azimuths))
+
+    num_points = np.sum(valid_mask, axis=0)
+    xyzi = np.zeros((num_points.sum(), 5), dtype=np.float64)
+    # process the array column-wise (azimuth by azimuth)
+    xyzi[:, 0] = x.T[valid_mask.T]
+    xyzi[:, 1] = y.T[valid_mask.T]
     xyzi[:, 2] -= ground_level  # Set height to ground level
+    xyzi[:, 3] = fft_data.T[valid_mask.T]
+    xyzi[:, 4] = np.repeat(timestamps_us * 1.e-6, num_points)
 
     return xyzi
 
