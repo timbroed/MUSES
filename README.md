@@ -3,8 +3,13 @@
 **[[Website]](https://muses.vision.ee.ethz.ch)**
 **[[Paper]](https://arxiv.org/pdf/2401.12761.pdf)**
 
+:bell: **News:**
+
+* [2024-07-17] We are happy to announce that MUSES was accepted at **ECCV 2024**.
+
 Welcome to the Software Development Kit (SDK) for the MUESS. 
 This SDK is designed to help you navigate and manipulate the multiple modalities of the MUSES dataset effectively.
+
 
 ### Overview
 
