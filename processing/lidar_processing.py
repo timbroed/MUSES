@@ -83,5 +83,13 @@ def load_lidar_projection(lidar_path, calib_data, scene_meta_dict=None, motion_c
         target_shape=target_shape)
     image = create_image_from_point_cloud(uv_img_cords_filtered, pcd_points_filtered, target_shape)
     if enlarge_lidar_points:
+        # The height (3rd) channel has negative values.
+        # We want to push all these pixels above 0 for the dilation to work as intended.
+        height_pixel_mask = image[:, :, 2] != 0.
+        image[height_pixel_mask, 2] += 255.
         image = enlarge_points_in_image(image, kernel_shape=(2, 2))
+
+        # Revert height adjustment (also the dilated pixels)
+        height_pixel_mask_dilated = image[:, :, 2] != 0.
+        image[height_pixel_mask_dilated, 2] -= 255.
     return image
