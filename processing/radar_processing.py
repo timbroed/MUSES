@@ -104,7 +104,7 @@ def radar_to_point_cloud(front_radar_polar_image, intensity_threshold=0, image_f
     timestamps_ns = front_radar_polar_image[4:8].transpose().reshape(-1).view(np.uint32).astype(np.float64)
     timestamps_us = (timestamps_s * 1000000.) + (timestamps_ns / 1e9 * 1000000.)  # microseconds
 
-    valid_flag = front_radar_polar_image[10].view(np.uint8).astype(np.bool)
+    valid_flag = front_radar_polar_image[10].view(np.uint8).astype(bool)
 
     fft_data = front_radar_polar_image[11:]
     valid_mask = fft_data >= intensity_threshold
@@ -224,5 +224,5 @@ def load_radar_projection(radar_path, calib_data, scene_meta_dict=None, motion_c
     image = create_image_from_point_cloud(uv_img_cords_filtered, pcd_points_filtered, target_shape,
                                           height_channel=False)
     if enlarge_radar_points:
-        image = enlarge_points_in_image(image, kernel_shape=(10, 10))
+        image = enlarge_points_in_image(image, kernel_shape=(9, 9))
     return image
