@@ -5,6 +5,7 @@
 
 :bell: **News:**
 
+* [2025-04-11] [Cafuser](https://github.com/timbroed/CAFuser) was released, including a Detectron2 [DataLoader](https://github.com/timbroed/CAFuser/blob/master/cafuser/data/dataset_mappers/muses_unified_dataset_mapper.py) for MUSES.
 * [2024-07-17] We are happy to announce that MUSES was accepted at **ECCV 2024**.
 
 Welcome to the Software Development Kit (SDK) for the MUESS. 
@@ -107,6 +108,10 @@ I.e. in the [processing](processing) folder, you can find sensor-specific proces
 For loading the unprocessed sensor data you can use: 'load_lidar_data', 'load_radar_as_pcd', and 'accumulate_events'. 
 For loading the modalities projected onto the camera image you can use: 'load_lidar_projection', 'load_radar_projection', and 'load_event_camera_projection'.
 In the [utils](processing/utils.py) file, you can find further helper functions like 'load_meta_data', 'load_muses_calibration_data', and 'read_gnss_file'.
+
+### DataLoader
+
+You can find an exemplary Detectron2 [DataLoader](https://github.com/timbroed/CAFuser/blob/master/cafuser/data/dataset_mappers/muses_unified_dataset_mapper.py) for MUSES in the [Cafuser repository](https://github.com/timbroed/CAFuser).
 
 ### Citation
 
