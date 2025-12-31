@@ -1,10 +1,12 @@
 # MUSES: The Multi-Sensor Semantic Perception Dataset for Driving under Uncertainty 
 
-**[[Website]](https://muses.vision.ee.ethz.ch)**
+**[[Download]](https://muses.ethz.ch)**
 **[[Paper]](https://arxiv.org/pdf/2401.12761.pdf)**
 
 :bell: **News:**
 
+* [2025-12-31] We released the test sets. Submission and benchmarking is not supported anymore.
+* [2025-12-31] The orignal website (muses.vision.ee.ethz.ch) was deactivated. You can download the dataset now under the [new website link](muses.vision.ee.ethz.ch).
 * [2025-04-11] [Cafuser](https://github.com/timbroed/CAFuser) was released, including a Detectron2 [DataLoader](https://github.com/timbroed/CAFuser/blob/master/cafuser/data/dataset_mappers/muses_unified_dataset_mapper.py) for MUSES.
 * [2024-07-17] We are happy to announce that MUSES was accepted at **ECCV 2024**.
 
@@ -32,7 +34,7 @@ The ground-truth annotations of the training and validation sets are publicly av
 
 ### Download
 
-MUSES can be downloaded through the [associated website](https://muses.vision.ee.ethz.ch/download). Users need to register on this website first before accessing the dataset.
+MUSES can be downloaded through the [associated website](https://muses.ethz.ch).
 
 Unzip all packages into the same folder:
 ```
@@ -115,7 +117,16 @@ You can find an exemplary Detectron2 [DataLoader](https://github.com/timbroed/CA
 
 ### Citation
 
-If you use MUSES in your work, please cite our publications as listed on the [MUSES website](https://muses.vision.ee.ethz.ch/citation).
+If you use MUSES in your work, please cite our publications:
+
+```bib
+@inproceedings{brodermann2024muses,
+  title={MUSES: The Multi-Sensor Semantic Perception Dataset for Driving under Uncertainty},
+  author={Br{\"o}dermann, Tim and Bruggemann, David and Sakaridis, Christos and Ta, Kevin and Liagouris, Odysseas and Corkill, Jason and Van Gool, Luc},
+  booktitle={European Conference on Computer Vision (ECCV)},
+  year={2024}
+}
+```
 
 ### License
 
