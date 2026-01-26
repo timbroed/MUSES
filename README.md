@@ -5,8 +5,7 @@
 
 :bell: **News:**
 
-* [2025-12-31] We released the [test sets](https://muses.ethz.ch). Submission and benchmarking is not supported anymore.
-* [2025-12-31] The orignal website (muses.vision.ee.ethz.ch) was deactivated. You can download the dataset now under the [new website link](https://muses.ethz.ch).
+* [2025-12-31] The orignal website (muses.vision.ee.ethz.ch) was deactivated. You can download the dataset now under the [new website link](https://muses.ethz.ch). New submission and benchmarking website coming soon.
 * [2025-04-11] [Cafuser](https://github.com/timbroed/CAFuser) was released, including a Detectron2 [DataLoader](https://github.com/timbroed/CAFuser/blob/master/cafuser/data/dataset_mappers/muses_unified_dataset_mapper.py) for MUSES.
 * [2024-07-17] We are happy to announce that MUSES was accepted at **ECCV 2024**.
 
