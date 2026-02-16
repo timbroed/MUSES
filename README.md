@@ -138,13 +138,3 @@ MUSES is made available for non-commercial use under the license agreement which
 ### Acknowledgements
 
 This work was supported by the ETH Future Computing Laboratory (EFCL), financed by a donation from Huawei Technologies.
-
-### Contact
-
-Please feel free to contact us with any questions or comments:
-
-Tim Broedermann and Christos Sakaridis
-
-E-Mail: muses.efcl [at] zohomail.eu
-
-Website: https://muses.vision.ee.ethz.ch
