@@ -3,9 +3,13 @@
 **[[Download]](https://muses.ethz.ch)**
 **[[Paper]](https://arxiv.org/pdf/2401.12761.pdf)**
 
-:bell: **News:**
+**Benchmarks:**
+- **[Panoptic Segmentation](https://www.codabench.org/competitions/13987/)** 
+- **[Semantic Segmentation](https://www.codabench.org/competitions/14005/)** 
 
-* [2025-12-31] The orignal website (muses.vision.ee.ethz.ch) was deactivated. You can download the dataset now under the [new website link](https://muses.ethz.ch). New submission and benchmarking website coming soon.
+:bell: **News:**
+* [2026-02-16] We host the MUSES benchmarks on codabench.
+* [2025-12-31] The orignal website (muses.vision.ee.ethz.ch) was deactivated. You can download the dataset now under the [new website link](https://muses.ethz.ch).
 * [2025-04-11] [Cafuser](https://github.com/timbroed/CAFuser) was released, including a Detectron2 [DataLoader](https://github.com/timbroed/CAFuser/blob/master/cafuser/data/dataset_mappers/muses_unified_dataset_mapper.py) for MUSES.
 * [2024-07-17] We are happy to announce that MUSES was accepted at **ECCV 2024**.
 
@@ -29,7 +33,7 @@ The dataset supports:
 3. Semantic segmentation
 4. Object detection
 
-The ground-truth annotations of the training and validation sets are publicly available. The ground-truth annotations of the test set are withheld and they are used to establish the publicly available [MUSES benchmark].
+The ground-truth annotations of the training and validation sets are publicly available. The ground-truth annotations of the test set are withheld and they are used to establish the publicly available [Panoptic Segmentation benchmark](https://www.codabench.org/competitions/13987/) and [Semantic Segmentation benchmark](https://www.codabench.org/competitions/14005/).
 
 ### Download
 
@@ -144,4 +148,3 @@ Tim Broedermann and Christos Sakaridis
 E-Mail: muses.efcl [at] zohomail.eu
 
 Website: https://muses.vision.ee.ethz.ch
-
